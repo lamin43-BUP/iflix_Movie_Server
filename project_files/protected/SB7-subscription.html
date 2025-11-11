@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Buy Subscription - iflix</title>
+  <link rel="stylesheet" href="/public/SB7-subscription.css">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="subscription-container">
+    <h1>Choose Your Plan</h1>
+
+    <div class="plans">
+      <div class="plan">
+        <h2>1 Month</h2>
+        <p>$9.99/month</p>
+        <ul><li>HD Streaming</li><li>Single Device</li></ul>
+        <button onclick="selectPlan('1 Month', 9.99, 1)">Buy Now</button>
+      </div>
+
+      <div class="plan">
+        <h2>3 Months</h2>
+        <p>$24.99/3 months</p>
+        <ul><li>HD Streaming</li><li>2 Devices</li></ul>
+        <button onclick="selectPlan('3 Months', 24.99, 3)">Buy Now</button>
+      </div>
+
+      <div class="plan">
+        <h2>6 Months</h2>
+        <p>$44.99/6 months</p>
+        <ul><li>Full HD Streaming</li><li>3 Devices</li></ul>
+        <button onclick="selectPlan('6 Months', 44.99, 6)">Buy Now</button>
+      </div>
+    </div>
+
+    <div class="plans second-row">
+      <div class="plan">
+        <h2>1 Year</h2>
+        <p>$79.99/year</p>
+        <ul><li>4K Ultra HD</li><li>Unlimited Devices</li><li>Offline Download</li></ul>
+        <button onclick="selectPlan('1 Year', 79.99, 12)">Buy Now</button>
+      </div>
+
+      <div class="plan">
+        <h2>2 Years</h2>
+        <p>$139.99/2 years</p>
+        <ul><li>4K Ultra HD</li><li>Unlimited Devices</li><li>Offline Download</li><li>Priority Support</li></ul>
+        <button onclick="selectPlan('2 Years', 139.99, 24)">Buy Now</button>
+      </div>
+    </div>
+
+    <div class="form-container" id="paymentForm">
+      <h2>Complete Your Purchase</h2>
+      <form onsubmit="confirmPayment(event)">
+        <input type="hidden" id="selectedPlan" name="plan">
+        <input type="hidden" id="selectedPrice" name="price">
+        <input type="hidden" id="selectedDuration" name="duration">
+        <label>Full Name</label>
+        <input type="text" id="fullName" required>
+        <label>Email</label>
+        <input type="email" id="email" required>
+        <label>Payment Method</label>
+        <select required>
+          <option value="">Select</option>
+          <option>Credit Card</option>
+          <option>PayPal</option>
+          <option>UPI</option>
+        </select>
+        <button type="submit">Confirm & Pay</button>
+      </form>
+    </div>
+
+    <div id="confirmationMessage" style="display: none;">
+      <h2>Thank You!</h2>
+      <p>Your subscription is confirmed.</p>
+      <p>You can now download and enjoy all movies!</p>
+    </div>
+  </div>
+
+  <div class="back-home-container">
+    <a href="index.html" class="back-home-btn">← Back to Home</a>
+  </div>
+
+  <script>
+    let planDuration = 0;
+
+    function selectPlan(plan, price, months) {
+      document.getElementById('selectedPlan').value = plan;
+      document.getElementById('selectedPrice').value = price;
+      document.getElementById('selectedDuration').value = months;
+      planDuration = months;
+
+      document.getElementById('paymentForm').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function confirmPayment(e) {
+  e.preventDefault();
+
+  const plan = document.getElementById('selectedPlan').value;
+  const price = document.getElementById('selectedPrice').value;
+  const duration = parseInt(document.getElementById('selectedDuration').value);
+  const fullName = document.getElementById('fullName').value;
+  const email = document.getElementById('email').value;
+
+  // Get today and add duration months
+  const startDate = new Date();
+  const endDate = new Date(startDate);
+  endDate.setMonth(startDate.getMonth() + duration);
+
+  const payload = {
+    plan,
+    price,
+    start_date: startDate.toISOString().split('T')[0],
+    end_date: endDate.toISOString().split('T')[0],
+    fullName,
+    email
+  };
+
+  console.log("Sending subscription payload:", payload); // ✅ DEBUG LOG
+
+  fetch('/api/subscribe', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  })
+  .then(res => res.json())
+  .then(data => {
+    console.log("Response:", data); // ✅ DEBUG LOG
+
+    if (data.success) {
+      document.getElementById('paymentForm').style.display = 'none';
+      document.getElementById('confirmationMessage').style.display = 'block';
+    } else {
+      alert('❌ Subscription failed: ' + (data.message || '')); // ✅ Show backend message
+    }
+  })
+  .catch(err => {
+    console.error('Error:', err);
+    alert('❌ Error submitting subscription.');
+  });
+}
+  </script>
+</body>
+</html>

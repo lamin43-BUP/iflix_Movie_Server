@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Search Movies</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #020b23;
+      color: white;
+      padding: 40px;
+    }
+
+    .search-container {
+      max-width: 600px;
+      margin: auto;
+      text-align: center;
+    }
+
+    h2 {
+      color: red;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 14px;
+      font-size: 18px;
+      border-radius: 6px;
+      border: none;
+      outline: none;
+      margin-bottom: 10px;
+      background-color: #1f1f1f;
+      color: white;
+    }
+
+    ul#suggestions {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      text-align: left;
+      max-height: 250px;
+      overflow-y: auto;
+    }
+
+    ul#suggestions li {
+      padding: 12px;
+      background-color: #222;
+      border-bottom: 1px solid #333;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    ul#suggestions li:hover {
+      background-color: red;
+      color: white;
+    }
+
+    .back-button {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      background-color: transparent;
+      color: red;
+      border: 2px solid red;
+      padding: 10px 16px;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .back-button:hover {
+      background-color: red;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <button class="back-button" onclick="goBack()">← Back</button>
+
+  <div class="search-container">
+    <h2>Search for a Movie</h2>
+    <input type="text" id="searchInput" placeholder="Type a movie name like Titanic..." autocomplete="off">
+    <ul id="suggestions"></ul>
+  </div>
+
+  <script>
+    const movies = [
+      { name: "Titanic", file: "details1-titanic.html" },
+      { name: "AngryBird", file: "details2-angrybirds.html" },
+      { name: "Hobbit", file: "details3-hobbit.html" },
+      { name: "1917", file: "details4-1917.html" },
+      { name: "3 Idiots", file: "details5-3idiots.html" },
+      { name: "Oblivion", file: "details8-oblivion.html" },
+      { name: "Duedate", file: "details10-duedate.html" },
+      { name: "KickAss2", file: "details11-kickass2.html" },
+      { name: "Emoji", file: "details12-emoji-movie.html" },
+      { name: "joker", file: "joker.html" },
+      { name: "her",   file: "details7-her.html"},
+      { name: "wednesday", file: "details13-wednesday.html"},
+      { name: "kotafactory", file: "details14-kotafactory.html"},
+      { name: "mirzapur", file: "details15-mirzapur.html"},
+    ];
+
+
+
+    const searchInput = document.getElementById('searchInput');
+    const suggestions = document.getElementById('suggestions');
+
+    searchInput.addEventListener('input', function () {
+      const query = this.value.toLowerCase().trim();
+      suggestions.innerHTML = '';
+
+      if (query.length === 0) return;
+
+      const filtered = movies.filter(movie => movie.name.toLowerCase().includes(query));
+
+      filtered.forEach(movie => {
+        const li = document.createElement('li');
+        li.textContent = movie.name;
+        li.addEventListener('click', () => {
+          window.location.href = movie.file;
+        });
+        suggestions.appendChild(li);
+      });
+    });
+
+    searchInput.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        const query = this.value.toLowerCase().trim();
+        const match = movies.find(m => m.name.toLowerCase() === query);
+        if (match) {
+          window.location.href = match.file;
+        } else {
+          alert("❌ Movie not found. Try again.");
+        }
+      }
+    });
+
+    function goBack() {
+      window.location.href = 'index.html'; // Change if needed
+    }
+  </script>
+</body>
+</html>

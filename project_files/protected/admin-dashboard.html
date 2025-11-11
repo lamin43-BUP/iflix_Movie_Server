@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Dashboard | iFlix</title>
+  <link rel="stylesheet" href="/public/admin-style.css" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+</head>
+<body>
+<nav class="navbar">
+  <div class="logo-container">
+    <img src="/public/img/f-t-1.png" alt="iFlix Logo" class="logo-img" />
+    <span class="logo-text">iFlix Admin</span>
+  </div>
+  <a href="/protected/admin-profile.html" class="admin-profile">
+    👤 Profile
+  </a>
+</nav>
+
+  <section class="dashboard">
+    <h1>Welcome, Admin!</h1>
+    <div class="cards">
+      <div class="card" onclick="window.location.href='/protected/index.html'">
+        <i class="fas fa-film"></i>
+        <h3>Movie Server</h3>
+      </div>
+      
+        <div class="card" onclick="window.location.href='/protected/view-users.html'">
+            <i class="fas fa-users"></i>
+            <h3>View Users</h3>
+        </div>
+        
+        <div class="card" onclick="window.location.href='/protected/add-movie.html'">
+  <i class="fas fa-plus"></i>
+  <h3>Add Movies</h3>
+</div>
+
+      <div class="card" onclick="window.location.href='/protected/delete-movie.html'">
+        <i class="fas fa-trash"></i>
+        <h3>Delete Movies</h3>
+      </div>
+      <div class="card" onclick="window.location.href='/protected/SB3-users.html'">
+        <i class="fas fa-comments"></i>
+        <h3>User Community</h3>
+      </div>
+      <div class="card" onclick="window.location.href='/protected/admin-charts.html'">
+        <i class="fas fa-chart-line"></i>
+        <h3>Overview</h3>
+      </div>
+      <div class="card" onclick="window.location.href='admin-subscriptions.html'">
+  <i class="fas fa-money-bill"></i>
+  <h3>Subscriptions</h3>
+</div>
+
+    </div>
+  </section>
+</body>
+</html>

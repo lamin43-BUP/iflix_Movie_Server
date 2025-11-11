@@ -1,0 +1,62 @@
+<!-- public/sign-up.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sign Up - iflix</title>
+  <link rel="stylesheet" href="signup.css">
+</head>
+<body>
+  <div class="overlay"></div>
+  <div class="container">
+    <div class="form-box">
+      <div class="logo">
+        <img src="img/f-t-1.png" alt="iflix Logo">
+      </div>
+      <h1>Sign Up</h1>
+      <form action="/signup" method="POST" id="signupForm">
+  <input type="text" id="name" name="name" placeholder="Full Name" required />
+  <input type="email" id="email" name="email" placeholder="Email Address" required />
+  <input type="text" id="phone" name="phone" placeholder="Phone Number" required />
+  
+  <select id="movie_preference" name="movie_preference" required>
+    <option value="">Select Movie Preference</option>
+    <option>Action</option>
+    <option>Drama</option>
+    <option>Comedy</option>
+    <option>Thriller</option>
+    <option>Romance</option>
+  </select>
+
+  <select id="subscription_plan" name="subscription_plan" required>
+    <option value="">Select Subscription Plan</option>
+    <option>1 Month</option>
+    <option>3 Months</option>
+    <option>6 Months</option>
+    <option>1 Year</option>
+  </select>
+
+  <input type="password" id="password" name="password" placeholder="Password" required />
+  <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirm Password" required />
+  <input type="number" id="age" name="age" placeholder="Age (optional)" />
+
+  <select id="gender" name="gender">
+    <option value="">Select Gender</option>
+    <option>Male</option>
+    <option>Female</option>
+    <option>Other</option>
+  </select>
+
+  <button type="submit">Submit</button>
+  <div class="switch">
+    Already have an account? <a href="login.html">Sign in now</a>
+  </div>
+</form>
+    </div>
+  </div>
+
+  <script src="signup.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Movie Details</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background-color: #141414; /* Netflix dark */
+  color: white;
+}
+
+#movie-container {
+  padding: 40px;
+  max-width: 1200px;
+  margin: auto;
+}
+
+/* Container layout */
+.movie-detail-container {
+  display: flex;
+  gap: 40px;
+  flex-wrap: wrap;
+  background-color: #1c1c1c;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.7);
+}
+
+/* Poster section */
+.poster-section {
+  flex: 1 1 300px;
+  position: relative;
+  text-align: center;
+}
+
+.poster-image {
+  width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.6);
+}
+
+/* Buttons */
+.play-button,
+.download-button,
+.watch-later-button {
+  display: inline-block;
+  margin: 12px 10px 0 0;
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: bold;
+  background-color: red;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.play-button:hover,
+.download-button:hover,
+.watch-later-button:hover {
+  background-color: #e50914;
+  transform: scale(1.05);
+}
+
+.watch-later-button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background-color: transparent;
+  color: red;
+  border: 2px solid red;
+}
+
+.watch-later-button:hover {
+  background-color: red;
+  color: white;
+}
+
+
+/* video play */
+#videoPlayerContainer {
+  display: none; /* hidden by default */
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: rgba(0, 0, 0, 0.95);
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  flex-direction: column;
+}
+
+#videoPlayerContainer video {
+  max-width: 90%;
+  max-height: 80%;
+  border-radius: 10px;
+  box-shadow: 0 0 30px #000;
+}
+
+#closeVideoBtn {
+  margin-top: 15px;
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  background-color: red;
+  color: white;
+}
+
+/* Info section */
+.info-section {
+  flex: 2 1 500px;
+}
+
+.movie-title {
+  font-size: 40px;
+  font-weight: bold;
+  margin: 0 0 10px;
+  color: white;
+}
+
+.sub-info {
+  color: #bbb;
+  margin-bottom: 10px;
+}
+
+.rating {
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.star {
+  color: gold;
+}
+
+/* Tabs */
+.tab-buttons {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.tab {
+  background-color: #333;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.tab:hover {
+  background-color: #444;
+}
+
+.tab.active {
+  background-color: red;
+  font-weight: bold;
+}
+
+/* Tab content */
+.tab-content {
+  background-color: #222;
+  padding: 20px;
+  border-radius: 8px;
+  min-height: 200px;
+}
+
+.tab-pane {
+  display: none;
+}
+
+.tab-pane.active {
+  display: block;
+}
+
+/* Details list */
+.details-list {
+  list-style: none;
+  padding: 0;
+  line-height: 2;
+}
+
+/* Similar movies */
+.similar-movies {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+.similar-movies img {
+  width: 150px;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 10px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.similar-movies img:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 12px red;
+}
+
+/* Rating stars */
+.rating-row {
+  margin: 20px 0;
+}
+
+.rating-stars span {
+  font-size: 2rem;
+  color: white;
+  cursor: pointer;
+}
+
+.rating-stars span.selected {
+  color: #f1c40f;
+}
+
+#submitRatingBtn {
+  margin-top: 10px;
+  padding: 10px 16px;
+  background-color: #e50914;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+#submitRatingBtn:hover {
+  background-color: #b0060f;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .movie-detail-container {
+    flex-direction: column;
+  }
+
+  .poster-image {
+    max-width: 100%;
+  }
+
+  .info-section {
+    width: 100%;
+  }
+}
+
+  </style>
+</head>
+<body>
+  <div class="movie-detail-container" id="movie-container">Loading...</div>
+
+  <div id="videoPlayerContainer">
+    <video id="videoPlayer" controls></video>
+    <button id="closeVideoBtn">Back</button>
+  </div>
+
+  <script>
+    let userId = null;
+
+    // Get user ID from profile
+    fetch('/api/profile')
+      .then(res => res.json())
+      .then(data => {
+        userId = data.user_id;
+      })
+      .catch(() => {
+        alert("Please login first.");
+        window.location.href = '/login.html';
+      });
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const movieId = urlParams.get('id');
+
+    fetch(`/api/movie/${movieId}`)
+      .then(res => res.json())
+      .then(movie => {
+        if (!movie) return document.getElementById('movie-container').textContent = '❌ Movie not found';
+
+        document.title = movie.name + ' - Movie Details';
+
+        document.getElementById('movie-container').innerHTML = `
+          <div class="poster-section">
+            <img src="${movie.thumbnail_path}" alt="${movie.name}" class="poster-image" />
+            <button class="play-button" id="playButton">▶ Play</button>
+            <a href="${movie.video_path}" download class="download-button">⬇ Download</a>
+            <button class="watch-later-button" onclick="addToWatchLater()">+ Watch Later</button>
+          </div>
+
+          <div class="info-section">
+            <h1 class="movie-title">${movie.name}</h1>
+            <div class="sub-info">${movie.duration || ''}</div>
+            <div class="rating">${movie.rating || 'N/A'} <span class="star">⭐</span></div>
+
+            <div class="rating-row" data-movie-id="${movieId}">
+              <div class="rating-stars">
+                <span data-star="1">★</span>
+                <span data-star="2">★</span>
+                <span data-star="3">★</span>
+                <span data-star="4">★</span>
+                <span data-star="5">★</span>
+              </div>
+              <button id="submitRatingBtn">Submit Rating</button>
+            </div>
+
+            <div class="tab-buttons">
+              <button class="tab active" onclick="showTab('overview')">Overview</button>
+              <button class="tab" onclick="showTab('trailer')">Trailer</button>
+              <button class="tab" onclick="showTab('similar')">More Like This</button>
+            </div>
+
+            <div class="tab-content">
+              <div id="overview" class="tab-pane active">
+                <p>${movie.overview || 'No overview available'}</p>
+              </div>
+              <div id="trailer" class="tab-pane">
+                ${movie.trailer_link ? `<iframe width="100%" height="315" src="${movie.trailer_link}" frameborder="0" allowfullscreen></iframe>` : 'No trailer available'}
+              </div>
+              <div id="similar" class="tab-pane">
+                <div class="similar-movies">
+                  <img src="/public/img/12.jpg" alt="Similar 1">
+                  <img src="/public/img/13.jpg" alt="Similar 2">
+                  <img src="/public/img/14.jpg" alt="Similar 3">
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+
+        document.getElementById('playButton').addEventListener('click', () => {
+  const videoPlayerContainer = document.getElementById('videoPlayerContainer');
+  const videoPlayer = document.getElementById('videoPlayer');
+
+  videoPlayer.src = movie.video_path;
+  videoPlayerContainer.style.display = 'flex';
+  videoPlayer.play();
+
+  // Go full screen
+  if (videoPlayer.requestFullscreen) {
+    videoPlayer.requestFullscreen();
+  } else if (videoPlayer.webkitRequestFullscreen) {
+    videoPlayer.webkitRequestFullscreen();
+  } else if (videoPlayer.msRequestFullscreen) {
+    videoPlayer.msRequestFullscreen();
+  }
+});
+
+document.getElementById('closeVideoBtn').addEventListener('click', () => {
+  const videoPlayerContainer = document.getElementById('videoPlayerContainer');
+  const videoPlayer = document.getElementById('videoPlayer');
+
+  videoPlayer.pause();
+  videoPlayer.currentTime = 0;
+  videoPlayer.src = ''; // Unload video
+
+  videoPlayerContainer.style.display = 'none';
+
+  // Exit fullscreen if still in fullscreen
+  if (document.fullscreenElement) {
+    document.exitFullscreen();
+  } else if (document.webkitFullscreenElement) {
+    document.webkitExitFullscreen();
+  } else if (document.msFullscreenElement) {
+    document.msExitFullscreen();
+  }
+});
+  
+document.addEventListener('fullscreenchange', () => {
+  if (!document.fullscreenElement) {
+    document.getElementById('videoPlayerContainer').style.display = 'none';
+    const videoPlayer = document.getElementById('videoPlayer');
+    videoPlayer.pause();
+    videoPlayer.currentTime = 0;
+    videoPlayer.src = '';
+  }
+});
+
+
+      });
+
+    function showTab(tabId) {
+      document.querySelectorAll('.tab-pane').forEach(tab => tab.classList.remove('active'));
+      document.querySelectorAll('.tab').forEach(btn => btn.classList.remove('active'));
+      document.getElementById(tabId).classList.add('active');
+      event.target.classList.add('active');
+    }
+
+    // Watch Later
+    function addToWatchLater() {
+      if (!userId || !movieId) {
+        alert("User or movie not found.");
+        return;
+      }
+      fetch('/watch-later', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ movieId, userId })
+      })
+        .then(res => res.json())
+        .then(data => {
+          if (data.success) alert('✅ Movie added to Watch Later!');
+          else if (data.message === 'DUPLICATE') alert('⚠️ Already in Watch Later list!');
+          else alert('❌ Error adding to Watch Later.');
+        });
+    }
+
+    // Rating
+    document.addEventListener('click', (e) => {
+      if (e.target.matches('.rating-stars span')) {
+        const index = parseInt(e.target.dataset.star);
+        const container = e.target.closest('.rating-stars');
+        selectedRating = index;
+        container.querySelectorAll('span').forEach((star, i) => {
+          star.classList.toggle('selected', i < index);
+        });
+      }
+    });
+
+    document.addEventListener('click', (e) => {
+      if (e.target && e.target.id === 'submitRatingBtn') {
+        if (selectedRating > 0) {
+          fetch('/submit-rating', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ movieId, userId, rating: selectedRating })
+          })
+            .then(res => res.json())
+            .then(data => {
+              if (data.success) alert('✅ Rating submitted successfully!');
+              else alert('❌ Error submitting rating.');
+            });
+        } else {
+          alert('Please select a rating.');
+        }
+      }
+    });
+  </script>
+</body>
+</html>

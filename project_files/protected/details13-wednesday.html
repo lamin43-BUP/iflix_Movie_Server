@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Wednesday - Series Details</title>
+  <link rel="stylesheet" href="details.css" />
+  <style>
+    .episode-buttons {
+      display: flex;
+      gap: 10px;
+      margin-top: 15px;
+      flex-wrap: wrap;
+    }
+
+    .episode-button {
+      background-color: red;
+      color: white;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 16px;
+      transition: background-color 0.3s;
+    }
+
+    .episode-button:hover {
+      background-color: #c40000;
+    }
+
+    #episodeActions {
+      display: none;
+      margin-top: 25px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
+    }
+    .poster-image {
+  width: 80%;
+  height: 70%;
+  max-height: 500px;  /* You can adjust this */
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 20px; /* Ensure space between image and episode buttons */
+}
+.poster-section {
+  overflow-x: hidden;
+  overflow-y: auto;
+  max-height: 90vh;
+  padding-bottom: 20px;
+}
+
+  </style>
+</head>
+<body>
+  <div class="movie-detail-container">
+    <div class="poster-section">
+      <img src="/public/img/33.jpg" alt="Wednesday" class="poster-image" />
+
+      <!-- Episode Boxes -->
+      <div class="episode-buttons">
+        <button class="episode-button" onclick="selectEpisode(1)">Episode 1</button>
+        <button class="episode-button" onclick="selectEpisode(2)">Episode 2</button>
+        <button class="episode-button" onclick="selectEpisode(3)">Episode 3</button>
+      </div>
+
+      <!-- Buttons below episodes -->
+      <div id="episodeActions">
+        <button class="play-button" id="playButton">▶ Play</button>
+        <a href="/public/movies/titanic.mp4" download="wednesday-episode.mp4" class="download-button">⬇ Download</a>
+        <button class="watch-later-button" onclick="addToWatchLater()">+ Watch Later</button>
+      </div>
+    </div>
+
+    <div class="info-section">
+      <h1 class="movie-title">Wednesday</h1>
+      <div class="sub-info">2022 • Season 1 • PG-13</div>
+      <div class="rating">8.1 <span class="star">⭐</span></div>
+
+      <div class="rating-row" data-movie-id="13">
+        <div class="rating-stars">
+          <span data-star="1">★</span>
+          <span data-star="2">★</span>
+          <span data-star="3">★</span>
+          <span data-star="4">★</span>
+          <span data-star="5">★</span>
+        </div>
+        <button id="submitRatingBtn">Submit Rating</button>
+      </div>
+
+      <div class="tab-buttons">
+        <button class="tab active" onclick="showTab('overview', event)">Overview</button>
+        <button class="tab" onclick="showTab('trailers', event)">Trailers & More</button>
+        <button class="tab" onclick="showTab('similar', event)">More Like This</button>
+        <button class="tab" onclick="showTab('details', event)">Details</button>
+      </div>
+
+      <div class="tab-content">
+        <div id="overview" class="tab-pane active">
+          <p>
+            Smart, sarcastic, and a little dead inside, Wednesday Addams investigates a murder spree while making new friends—and enemies—at Nevermore Academy.
+          </p>
+        </div>
+
+        <div id="trailers" class="tab-pane">
+          <iframe width="100%" height="315" src="https://www.youtube.com/embed/Q73UhUTs6y0"
+            title="Wednesday Trailer" frameborder="0" allowfullscreen></iframe>
+        </div>
+
+        <div id="similar" class="tab-pane">
+          <div class="similar-movies">
+            <img src="/public/img/strangerthings.jpg" alt="Stranger Things" />
+            <img src="/public/img/sabrinathewitch.jpg" alt="Sabrina" />
+            <img src="/public/img/umbrellaacademy.jpg" alt="Umbrella Academy" />
+          </div>
+        </div>
+
+        <div id="details" class="tab-pane">
+          <ul class="details-list">
+            <li><strong>Starring:</strong> Jenna Ortega, Gwendoline Christie, Emma Myers</li>
+            <li><strong>Directed by:</strong> Tim Burton, Gandja Monteiro</li>
+            <li><strong>Produced by:</strong> Netflix</li>
+            <li><strong>Genres:</strong> Mystery, Comedy, Horror</li>
+            <li><strong>Language:</strong> English</li>
+            <li><strong>Production:</strong> Netflix</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="videoPlayerContainer">
+    <video id="videoPlayer" controls></video>
+    <button id="closeVideoBtn">Back</button>
+  </div>
+
+  <script>
+    let userId = null;
+
+    // Get logged-in user ID
+    fetch('/api/profile')
+      .then(res => res.json())
+      .then(data => {
+        userId = data.user_id;
+      })
+      .catch(() => {
+        alert("Please login first.");
+        window.location.href = '/login.html';
+      });
+
+    function showTab(tabId, event) {
+      document.querySelectorAll('.tab-pane').forEach(tab => tab.classList.remove('active'));
+      document.querySelectorAll('.tab').forEach(btn => btn.classList.remove('active'));
+      document.getElementById(tabId).classList.add('active');
+      event.target.classList.add('active');
+    }
+
+    function selectEpisode(epNumber) {
+      document.getElementById('episodeActions').style.display = 'flex';
+    }
+
+    // Play button logic
+    const playButton = document.getElementById('playButton');
+    const videoPlayerContainer = document.getElementById('videoPlayerContainer');
+    const videoPlayer = document.getElementById('videoPlayer');
+    const closeVideoBtn = document.getElementById('closeVideoBtn');
+
+    playButton.addEventListener('click', () => {
+      videoPlayer.src = '/public/movies/titanic.mp4';
+      videoPlayerContainer.style.display = 'flex';
+      videoPlayer.play();
+      if (videoPlayer.requestFullscreen) videoPlayer.requestFullscreen();
+    });
+
+    closeVideoBtn.addEventListener('click', () => {
+      videoPlayer.pause();
+      videoPlayer.currentTime = 0;
+      videoPlayerContainer.style.display = 'none';
+      if (document.exitFullscreen) document.exitFullscreen();
+    });
+
+    // Watch Later functionality
+    function addToWatchLater() {
+      const movieId = document.querySelector('.rating-row').getAttribute('data-movie-id');
+
+      if (!userId || !movieId) {
+        alert("User not authenticated.");
+        return;
+      }
+
+      fetch('/watch-later', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ movieId, userId })
+      })
+        .then(res => res.json())
+        .then(data => {
+          if (data.success) {
+            alert('✅ Added to Watch Later!');
+          } else if (data.message === 'DUPLICATE') {
+            alert('⚠️ Already in Watch Later list.');
+          } else {
+            alert('❌ Failed to add to Watch Later.');
+          }
+        })
+        .catch(err => {
+          console.error("❌ Watch Later error:", err);
+          alert("Server error.");
+        });
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Filtered Movies</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    body {
+      background-color: #141414;
+      color: white;
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding-left: 80px;
+    }
+
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 70px;
+      height: 100%;
+      background-color: #000;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 20px;
+    }
+
+    .left-menu-icon {
+      color: red;
+      font-size: 24px;
+      margin: 20px 0;
+      cursor: pointer;
+    }
+
+    .movie-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+      padding: 30px;
+    }
+
+    .movie-list-item {
+      width: 200px;
+      background-color: #1f1f1f;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 0 10px rgba(0,0,0,0.6);
+      transition: transform 0.3s ease;
+    }
+
+    .movie-list-item:hover {
+      transform: scale(1.05);
+    }
+
+    .movie-list-item-img {
+      width: 100%;
+      height: 300px;
+      object-fit: cover;
+    }
+
+    .movie-list-item-title {
+      font-weight: bold;
+      font-size: 18px;
+      padding: 10px 10px 0;
+    }
+
+    .movie-list-item-desc {
+      font-size: 14px;
+      padding: 0 10px 10px;
+      color: #ccc;
+      height: 60px;
+      overflow: hidden;
+    }
+
+    .movie-list-item-button {
+      display: block;
+      width: 90%;
+      margin: 10px auto;
+      padding: 10px;
+      border: none;
+      background-color: red;
+      color: white;
+      font-weight: bold;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .movie-list-item-button:hover {
+      background-color: #e50914;
+    }
+
+    h1 {
+      padding: 30px;
+      color: red;
+      text-transform: uppercase;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <a href="SB1-search.html"><i class="left-menu-icon fas fa-search"></i></a>
+    <a href="index.html"><i class="left-menu-icon fas fa-home"></i></a>
+    <a href="SB3-users.html"><i class="left-menu-icon fas fa-users" title="Users"></i></a>
+    <i class="left-menu-icon fas fa-tv" title="TV Shows"></i>
+    <a href="SB4-watch_later.html"><i class="left-menu-icon fas fa-hourglass-start" title="Watch Later"></i></a>
+    <a href="SB7-subscription.html" title="Buy Subscription"><i class="left-menu-icon fas fa-shopping-cart"></i></a>
+  </div>
+
+  <!-- Page Heading -->
+  <h1 id="genre-title">Movies</h1>
+
+  <!-- Movie List -->
+  <div class="movie-list" id="movieList">
+    <!-- Movie cards will be added here -->
+  </div>
+
+  <div style="padding: 0 30px;">
+  <button onclick="history.back()" style="
+    background-color: transparent;
+    color: red;
+    border: 2px solid red;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-bottom: 10px;
+  ">← Back</button>
+</div>
+
+ <script>
+  const movieFileMap = {
+    "titanic": "details1-titanic.html",
+    "theangrybirds": "details2-angrybirds.html",
+    "thehobbit": "details3-hobbit.html",
+    "1917": "details4-1917.html",
+    "3idiots": "details5-3idiots.html",
+    "oblivion": "details8-oblivion.html",
+    "duedate": "details10-duedate.html",
+    "kickass2": "details11-kickass2.html",
+    "theemojimovie": "details12-emoji-movie.html",
+    "joker": "joker.html",
+    "her": "details7-her.html",
+    "wednesday": "details13-wednesday.html",
+    "kotafactory": "details14-kotafactory.html",
+    "mirzapur": "details15-mirzapur.html",
+  };
+
+  const urlParams = new URLSearchParams(window.location.search);
+  const filterType = urlParams.get('filterType');
+  const filterValue = urlParams.get('filterValue');
+  const genre = urlParams.get('genre');
+
+  const container = document.getElementById('movieList');
+  const titleEl = document.getElementById('genre-title');
+
+  let apiUrl = '';
+  let displayTitle = '';
+
+  if (filterType && filterValue) {
+    // General filter (popular_category, trend_category, etc.)
+    apiUrl = `/api/movies/filter?filterType=${filterType}&filterValue=${encodeURIComponent(filterValue)}`;
+    displayTitle = `${filterValue} Movies`;
+  } else if (genre) {
+    // Genre-based filter
+    apiUrl = `/api/movies/genre/${encodeURIComponent(genre)}`;
+    displayTitle = `${genre} Movies`;
+  } else {
+    // No filters
+    titleEl.textContent = '🎬 All Movies';
+    container.innerHTML = '<p>No filter selected.</p>';
+    throw new Error('No filter specified.');
+  }
+
+  titleEl.textContent = `🎬 ${displayTitle}`;
+
+  fetch(apiUrl)
+    .then(res => res.json())
+    .then(data => {
+      container.innerHTML = '';
+
+      if (!data || data.length === 0) {
+        container.innerHTML = '<p style="color:#ccc;">No movies found.</p>';
+        return;
+      }
+
+      data.forEach(movie => {
+        const div = document.createElement('div');
+        div.className = 'movie-list-item';
+
+        const cleanedName = movie.name.toLowerCase().replace(/[^a-z0-9]/gi, '');
+        const fileName = movieFileMap[cleanedName];
+
+        div.innerHTML = `
+          <img class="movie-list-item-img" src="${movie.thumbnail_path}" alt="${movie.name}">
+          <span class="movie-list-item-title">${movie.name}</span>
+          ${
+            fileName
+              ? `<a href="/protected/${fileName}"><button class="movie-list-item-button">Details</button></a>`
+              : `<button disabled class="movie-list-item-button" style="opacity:0.5;">Details Unavailable</button>`
+          }
+        `;
+        container.appendChild(div);
+      });
+    })
+    .catch(err => {
+      console.error('Error fetching movies:', err);
+      container.innerHTML = '<p style="color:#ccc;">❌ Failed to load movies.</p>';
+    });
+</script>
+
+</body>
+</html>

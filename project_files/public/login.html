@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sign In - iflix</title>
+  <link rel="stylesheet" href="/login.css">
+  <style>
+    .admin-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Center horizontally */
+  gap: 8px;
+  font-size: 14px;
+  color: #fff;
+  margin-top: 10px;
+}
+.admin-toggle input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: #81141a;
+  margin: 0;
+}
+
+
+  </style>
+</head>
+<body>
+  <div class="overlay"></div>
+  <div class="container">
+    <div class="form-box">
+      <div class="logo">
+        <img src="img/f-t-1.png" alt="iflix Logo">
+      </div>
+      <h1>Sign In</h1>
+      <form id="loginForm">
+        <input type="text" name="email" id="email" placeholder="Username or Email" required />
+        <input type="password" name="password" id="password" placeholder="Password" required />
+
+        <div class="admin-toggle">
+          <input type="checkbox" id="isAdmin">
+          <span>Login as Admin</span>
+        </div>
+
+        <button type="submit">Sign In</button>
+        <div class="switch">
+          New to iflix? <a href="sign-up.html">Sign up now</a>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('loginForm').addEventListener('submit', async function (e) {
+      e.preventDefault();
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      const isAdmin = document.getElementById('isAdmin').checked;
+
+      const res = await fetch(isAdmin ? '/admin/login' : '/login', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ email, password })
+      });
+
+      const result = await res.json();
+      if (result.success) {
+        window.location.href = result.redirect;
+      } else {
+        alert(result.message || 'Login failed');
+      }
+    });
+  </script>
+</body>
+</html>

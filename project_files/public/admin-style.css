@@ -1,0 +1,94 @@
+/* public/admin-style.css */
+body {
+  font-family: 'Segoe UI', sans-serif;
+  margin: 0;
+  background: #0a0f24;
+  color: #fff;
+}
+
+.navbar {
+  background-color: #091021;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 30px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.4);
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo-img {
+  height: 40px;
+  width: auto;
+}
+
+.logo-text {
+  font-size: 1.6rem;
+  font-weight: bold;
+  color: #e50914;
+}
+
+.admin-profile {
+  background: #e50914;
+  padding: 6px 12px;
+  border-radius: 4px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.admin-profile:hover {
+  background: #f40612;
+}
+
+
+.dashboard {
+  padding: 30px;
+  max-width: 1200px;
+  margin: auto;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 2rem;
+  color: #fff;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 25px;
+}
+
+.card {
+  background-color: #1a233a;
+  padding: 30px 20px;
+  border-radius: 12px;
+  text-align: center;
+  transition: transform 0.3s ease, background 0.3s ease;
+  cursor: pointer;
+  box-shadow: 0 0 15px rgba(229,9,20,0.2);
+  color: #fff;
+}
+
+.card:hover {
+  transform: scale(1.05);
+  background-color: #e50914;
+  color: white;
+}
+
+.card i {
+  font-size: 2.2em;
+  margin-bottom: 12px;
+}
+
+.card h3 {
+  margin: 0;
+  font-size: 1.1rem;
+}

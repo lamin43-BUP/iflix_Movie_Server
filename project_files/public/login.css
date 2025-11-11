@@ -1,0 +1,119 @@
+
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: url(img/background.jpg) no-repeat center center / cover;
+  background-color: rgba(0, 0, 0, 0.463);
+  color: white;
+}
+.overlay {
+  background-color: rgba(0, 0, 0, 0.446);
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+}
+.container {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+.form-box {
+  background-color: rgba(0, 0, 0, 0.512);
+  padding: 40px;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 350px;
+}
+.form-box:hover {
+    
+    box-shadow: 0 0 35px #ff002f80;
+  }
+.form-box h1 {
+  margin-bottom: 20px;
+  font-size: 2rem;
+}
+.form-box input {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  background: #33333389;
+  border: none;
+  color: white;
+  border-radius: 4px;
+}
+.form-box button {
+  width: 100%;
+  padding: 12px;
+  background-color:#F63336;
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+.form-box .switch {
+  margin-top: 20px;
+  font-size: 0.9rem;
+}
+.form-box .switch a {
+  color: #F63336;
+  text-decoration: none;
+  margin-left: 5px;
+}
+
+
+.admin-toggle {
+  display: flex;
+  align-items: center;
+  margin: 10px 0 15px;
+  font-size: 14px;
+  color: #ddd;
+  text-align: left;
+}
+
+.admin-toggle input[type="checkbox"] {
+  margin-right: 8px;
+  transform: scale(1.1);
+  cursor: pointer;
+}
+
+
+
+.logo {
+    position: absolute;
+    top: -150px;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 60px;
+    animation: float 3s ease-in-out infinite;
+  }
+  
+  .logo img {
+    height: 300%;
+    width: auto;
+  }
+  
+  
+  @keyframes float {
+    0%   { transform: translateX(-50%) translateY(0); }
+    50%  { transform: translateX(-50%) translateY(-10px); }
+    100% { transform: translateX(-50%) translateY(0); }
+  }
+  
+ 
+  .form-box {
+    position: relative;
+    background-color: rgba(0, 0, 0, 0.8);
+    padding: 60px 40px 40px; 
+    border-radius: 8px;
+    width: 100%;
+    max-width: 350px;
+  }
+  

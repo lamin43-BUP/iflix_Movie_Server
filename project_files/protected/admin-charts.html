@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Dashboard - Overview</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      background-color: #141414;
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 20px;
+      color: white;
+    }
+
+    .overview-container {
+      background-color: #1c1c1c;
+      border-radius: 10px;
+      padding: 30px;
+      max-width: 800px;
+      margin: auto;
+    }
+
+    h2 {
+      margin-top: 30px;
+      margin-bottom: 15px;
+      font-size: 20px;
+    }
+
+    .chart-title-age {
+      color: #f32626;
+    }
+
+    .chart-title-genre {
+      color: #f32626;
+    }
+
+    .chart-container {
+      width: 100%;
+      max-width: 500px;
+      height: auto;
+      margin: 0 auto;
+    }
+
+    canvas {
+      width: 100% !important;
+      height: auto !important;
+      background-color: #1c1c1c;
+      border-radius: 10px;
+      padding: 10px;
+    }
+
+    .back-button {
+      display: inline-block;
+      margin-top: 40px;
+      background-color: transparent;
+      border: 2px solid #fff;
+      color: #b40707;
+      padding: 10px 20px;
+      font-weight: bold;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .back-button:hover {
+      background-color: #fff;
+      color: #000;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="overview-container">
+    <h2 class="chart-title-age">📊 User Age Distribution</h2>
+    <div class="chart-container">
+      <canvas id="ageChart" width="400" height="250"></canvas>
+    </div>
+
+    <h2 class="chart-title-genre">🥧 Movie Genre Distribution</h2>
+    <div class="chart-container">
+      <canvas id="genreChart" width="400" height="250"></canvas>
+    </div>
+
+    <button class="back-button" onclick="window.history.back()">← Back</button>
+  </div>
+
+  <script>
+    // Age distribution chart
+    fetch('/api/admin/user-age-stats')
+      .then(res => res.json())
+      .then(data => {
+        const ctx = document.getElementById('ageChart').getContext('2d');
+        new Chart(ctx, {
+          type: 'bar',
+          data: {
+            labels: Object.keys(data),
+            datasets: [{
+              label: 'Users',
+              data: Object.values(data),
+              backgroundColor: [
+                '#ff6384', '#36a2eb', '#cc65fe', '#ffce56', '#4bc0c0', '#f76d57'
+              ],
+              borderRadius: 6
+            }]
+          },
+          options: {
+            plugins: {
+              legend: { display: false }
+            },
+            scales: {
+              x: {
+                ticks: { color: '#fff' }
+              },
+              y: {
+                beginAtZero: true,
+                ticks: { color: '#fff' }
+              }
+            }
+          }
+        });
+      })
+      .catch(err => {
+        console.error('Error fetching age data:', err);
+      });
+
+    // Genre distribution pie chart
+    fetch('/api/admin/movie-genre-stats')
+      .then(res => res.json())
+      .then(data => {
+        const ctx = document.getElementById('genreChart').getContext('2d');
+        new Chart(ctx, {
+          type: 'pie',
+          data: {
+            labels: Object.keys(data),
+            datasets: [{
+              data: Object.values(data),
+              backgroundColor: [
+                '#ff6384', '#36a2eb', '#cc65fe', '#ffce56', '#4bc0c0', '#f76d57', '#2ecc71'
+              ],
+              borderColor: '#000',
+              borderWidth: 1
+            }]
+          },
+          options: {
+            plugins: {
+              legend: {
+                labels: {
+                  color: '#fff'
+                }
+              }
+            }
+          }
+        });
+      })
+      .catch(err => {
+        console.error('Error fetching genre data:', err);
+      });
+  </script>
+
+</body>
+</html>

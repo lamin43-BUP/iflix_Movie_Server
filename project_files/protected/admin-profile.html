@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Profile | iFlix</title>
+  <link rel="stylesheet" href="/public/admin-style.css" />
+  <style>
+    /* public/admin-profile.css */
+.profile-container {
+  max-width: 800px;
+  margin: 40px auto;
+  background: #1a233a;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(229, 9, 20, 0.3);
+}
+
+.profile-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  color: #fff;
+}
+
+.profile-image img {
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid #e50914;
+  box-shadow: 0 0 10px rgba(229, 9, 20, 0.6);
+}
+
+.profile-info {
+  margin-top: 20px;
+}
+
+.profile-info h2 {
+  color: #e50914;
+  margin-bottom: 10px;
+}
+
+.profile-info p {
+  font-size: 1rem;
+  margin: 6px 0;
+}
+
+.profile-info i {
+  margin-right: 8px;
+  color: #f40612;
+}
+
+.back-button {
+  display: inline-block;
+  margin: 20px 30px;
+  padding: 8px 15px;
+  background-color: #e50914;
+  color: white;
+  border-radius: 5px;
+  font-weight: bold;
+  text-decoration: none;
+  transition: background 0.3s ease;
+}
+
+.back-button:hover {
+  background-color: #f40612;
+}
+
+  </style>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+</head>
+
+
+<body>
+  <nav class="navbar">
+    <div class="logo-container">
+      <img src="/public/img/f-t-1.png" alt="iFlix Logo" class="logo-img" />
+      <div class="logo-text">iFlix Admin</div>
+    </div>
+    <div class="admin-profile">👤 Profile</div>
+  </nav>
+
+  <section class="profile-container">
+    <div class="profile-card">
+      <div class="profile-image">
+        <img src="/public/img/Profile-lamin.jpeg" alt="Admin Profile" />
+      </div>
+      <div class="profile-info">
+        <h2>Lamin</h2>
+        <p><i class="fas fa-envelope"></i> Email: lamin@iflix.com</p>
+        <p><i class="fas fa-phone"></i> Phone: +8801762202525</p>
+        <p><i class="fas fa-user-shield"></i> Role: Admin</p>
+        <p><i class="fas fa-calendar-alt"></i> Joined: January 1, 2024</p>
+      </div>
+    </div>
+    <a href="/protected/admin-dashboard.html" class="back-button">
+  ← Back to Dashboard
+</a>
+
+  </section>
+</body>
+</html>

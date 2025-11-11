@@ -1,0 +1,259 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background-color: #111;
+    color: white;
+}
+
+.movie-detail-container {
+    display: flex;
+    padding: 40px;
+    gap: 40px;
+    flex-wrap: wrap;
+}
+
+.poster-section {
+    position: relative;
+    width: 40%;
+}
+
+.poster-image {
+    width: 100%;
+    height: auto;
+    border-radius: 20px;
+    box-shadow: 0 0 15px #000;
+}
+
+.play-button,
+.download-button {
+    position: absolute;
+    bottom: 30px;
+    padding: 16px 32px;
+    border: none;
+    border-radius: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.play-button {
+    left: 30px;
+    background-color: red;
+    color: white;
+}
+
+.download-button {
+    left: 200px;
+    background-color: red;
+    color: white;
+}
+
+.play-button:hover,
+.download-button:hover {
+    background-color: #ff4c4c;
+    transform: scale(1.05);
+}
+
+.info-section {
+    width: 55%;
+}
+
+.movie-title {
+    font-size: 48px;
+    margin: 0;
+    font-weight: bold;
+}
+
+.sub-info {
+    font-size: 18px;
+    color: #bbb;
+    margin: 10px 0;
+}
+
+
+
+.tab-buttons {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.tab {
+    background-color: #222;
+    color: white;
+    padding: 10px 18px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.tab:hover {
+    background-color: #333;
+}
+
+.tab.active {
+    background-color: red;
+    font-weight: bold;
+}
+
+.tab-content {
+    background-color: #1a1a1a;
+    padding: 20px;
+    border-radius: 10px;
+    min-height: 200px;
+    margin-bottom: 30px;
+}
+
+.tab-pane {
+    display: none;
+}
+
+.tab-pane.active {
+    display: block;
+}
+
+.details-list {
+    list-style: none;
+    padding-left: 0;
+    line-height: 2;
+    font-size: 16px;
+}
+
+.similar-movies {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.similar-movies img {
+    width: 180px;
+    height: 270px;
+    border-radius: 12px;
+    object-fit: cover;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.similar-movies img:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 12px red;
+}
+
+
+/* Watch Later button */
+.watch-later-button {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    background-color: transparent;
+    color: red;
+    border: 2px solid red;
+    padding: 10px 18px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease, color 0.3s ease;
+}
+
+.watch-later-button:hover {
+    background-color: red;
+    color: white;
+    transform: scale(1.05);
+}
+
+/* Rating Dropdown */
+/* .rating-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 15px 0;
+}
+
+.rating-stars span {
+  font-size: 40px;
+  color: #ccc;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.rating-stars span.selected {
+  color: gold;
+}
+
+#submitRatingBtn {
+  background-color: #e50914;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+#submitRatingBtn:hover {
+  background-color: #b0060f;
+} */
+
+
+.rating-stars {
+  font-size: 2rem;
+  cursor: pointer;
+}
+
+.rating-stars span {
+  color: white;
+}
+
+.rating-stars span.selected {
+  color: #f1c40f;
+}
+
+#submitRatingBtn {
+  margin-top: 20px;
+  padding: 10px;
+  background-color: #2ecc71;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#submitRatingBtn:hover {
+  background-color: #27ae60;
+}
+
+/* video */
+#videoPlayerContainer {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-color: rgba(0, 0, 0, 0.9);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      flex-direction: column;
+    }
+    #videoPlayerContainer video {
+      max-width: 90%;
+      max-height: 80%;
+      border-radius: 10px;
+      box-shadow: 0 0 30px #000;
+    }
+    #videoPlayerContainer button {
+      margin-top: 15px;
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      background-color: red;
+      color: white;
+    }

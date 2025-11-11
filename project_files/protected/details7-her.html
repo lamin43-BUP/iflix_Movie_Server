@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Her - Movie Details</title>
+  <link rel="stylesheet" href="details.css">
+</head>
+<body>
+  <div class="movie-detail-container">
+    <div class="poster-section">
+      <img src="/public/img/7.jpg" alt="Her" class="poster-image" />
+      <button class="play-button" id="playButton">▶ Play</button>
+      <a href="/public/movies/titanic.mp4" download="her.mp4" class="download-button">⬇ Download</a>
+      <button class="watch-later-button" onclick="addToWatchLater()">+ Watch Later</button>
+    </div>
+
+    <div class="info-section">
+      <h1 class="movie-title">Her</h1>
+      <div class="sub-info">2013 • 2h 6min • R</div>
+      <div class="rating">8.0 <span class="star">⭐</span></div>
+
+      <div class="rating-row" data-movie-id="14">
+        <div class="rating-stars">
+          <span data-star="1">★</span>
+          <span data-star="2">★</span>
+          <span data-star="3">★</span>
+          <span data-star="4">★</span>
+          <span data-star="5">★</span>
+        </div>
+        <button id="submitRatingBtn">Submit Rating</button>
+      </div>
+
+      <div class="tab-buttons">
+        <button class="tab active" onclick="showTab('overview')">Overview</button>
+        <button class="tab" onclick="showTab('trailers')">Trailers & More</button>
+        <button class="tab" onclick="showTab('similar')">More Like This</button>
+        <button class="tab" onclick="showTab('details')">Details</button>
+      </div>
+
+      <div class="tab-content">
+        <div id="overview" class="tab-pane active">
+          <p>
+            In a near future, a lonely writer develops an unlikely relationship with an operating system designed to meet his every need.
+          </p>
+        </div>
+
+        <div id="trailers" class="tab-pane">
+          <iframe width="100%" height="315" src="https://www.youtube.com/embed/WzV6mXIOVl4"
+                  title="Her Trailer" frameborder="0" allowfullscreen></iframe>
+        </div>
+
+        <div id="similar" class="tab-pane">
+          <div class="similar-movies">
+            <img src="/public/img/13.jpg" alt="Ex Machina">
+            <img src="/public/img/12.jpg" alt="The Notebook">
+            <img src="/public/img/14.jpg" alt="The Great Gatsby">
+          </div>
+        </div>
+
+        <div id="details" class="tab-pane">
+          <ul class="details-list">
+            <li><strong>Starring:</strong> Joaquin Phoenix, Scarlett Johansson, Amy Adams</li>
+            <li><strong>Directed by:</strong> Spike Jonze</li>
+            <li><strong>Produced by:</strong> Megan Ellison, Spike Jonze, Vincent Landay</li>
+            <li><strong>Writers:</strong> Spike Jonze</li>
+            <li><strong>Genres:</strong> Romance, Sci-Fi, Drama</li>
+            <li><strong>Movie Characters:</strong> Theodore, Samantha, Amy</li>
+            <li><strong>Language:</strong> English</li>
+            <li><strong>Production:</strong> Annapurna Pictures</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="videoPlayerContainer">
+    <video id="videoPlayer" controls></video>
+    <button id="closeVideoBtn">Back</button>
+  </div>
+
+  <script>
+    let userId = null;
+
+    function showTab(tabId) {
+      document.querySelectorAll('.tab-pane').forEach(tab => tab.classList.remove('active'));
+      document.querySelectorAll('.tab').forEach(btn => btn.classList.remove('active'));
+      document.getElementById(tabId).classList.add('active');
+      event.target.classList.add('active');
+    }
+
+    fetch('/api/profile')
+      .then(res => res.json())
+      .then(data => {
+        userId = data.user_id;
+      })
+      .catch(() => {
+        alert("Please login first.");
+        window.location.href = '/login.html';
+      });
+
+    function addToWatchLater() {
+      const movieId = document.querySelector('.rating-row').getAttribute('data-movie-id');
+      if (!userId || !movieId) {
+        alert("User or movie not found.");
+        return;
+      }
+
+      fetch('/watch-later', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ movieId, userId })
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (data.success) {
+          alert('✅ Movie added to Watch Later!');
+        } else if (data.message === 'DUPLICATE') {
+          alert('⚠️ Already in Watch Later list!');
+        } else {
+          alert('❌ Error adding to Watch Later.');
+        }
+      });
+    }
+
+    const playButton = document.getElementById('playButton');
+    const videoPlayerContainer = document.getElementById('videoPlayerContainer');
+    const videoPlayer = document.getElementById('videoPlayer');
+    const closeVideoBtn = document.getElementById('closeVideoBtn');
+
+    playButton.addEventListener('click', () => {
+      videoPlayer.src = '/public/movies/titanic.mp4';
+      videoPlayerContainer.style.display = 'flex';
+      videoPlayer.play();
+      if (videoPlayer.requestFullscreen) {
+        videoPlayer.requestFullscreen();
+      } else if (videoPlayer.webkitRequestFullscreen) {
+        videoPlayer.webkitRequestFullscreen();
+      } else if (videoPlayer.msRequestFullscreen) {
+        videoPlayer.msRequestFullscreen();
+      }
+    });
+
+    closeVideoBtn.addEventListener('click', () => {
+      videoPlayer.pause();
+      videoPlayer.currentTime = 0;
+      videoPlayerContainer.style.display = 'none';
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+      } else if (document.webkitExitFullscreen) {
+        document.webkitExitFullscreen();
+      } else if (document.msExitFullscreen) {
+        document.msExitFullscreen();
+      }
+    });
+
+    const ratingStars = document.querySelectorAll('.rating-stars span');
+    const submitButton = document.getElementById('submitRatingBtn');
+    let selectedRating = 0;
+
+    ratingStars.forEach((star, index) => {
+      star.addEventListener('click', () => {
+        selectedRating = index + 1;
+        ratingStars.forEach((star, idx) => {
+          star.classList.toggle('selected', idx <= index);
+        });
+      });
+    });
+
+    submitButton.addEventListener('click', () => {
+      const movieId = document.querySelector('.rating-row').getAttribute('data-movie-id');
+      if (selectedRating > 0) {
+        fetch('/submit-rating', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ movieId, userId, rating: selectedRating })
+        })
+        .then(res => res.json())
+        .then(data => {
+          alert(data.success ? 'Rating submitted successfully!' : 'Error submitting rating.');
+        });
+      } else {
+        alert('Please select a rating.');
+      }
+    });
+  </script>
+</body>
+</html>

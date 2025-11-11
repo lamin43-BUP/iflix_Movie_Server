@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Your Profile | iflix</title>
+  <link rel="stylesheet" href="/public/profile.css" />
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous" defer></script>
+  <script src="/public/profile.js" defer></script>
+</head>
+<body>
+  <div class="container">
+    <a href="index.html" class="back-button">← Back</a>
+    <h1>Your Profile</h1>
+
+    <form id="profile-form" enctype="multipart/form-data" method="POST">
+      <div class="profile-pic-container" tabindex="0">
+        <img id="profile-picture" src="/public/img/default-profile.jpg" alt="Profile Picture" />
+        <div class="upload-overlay" title="Change profile picture">
+          <label for="imageInput"><i class="fas fa-camera"></i> Change</label>
+        </div>
+        <input type="file" id="imageInput" name="profile_picture" accept="image/*" hidden />
+      </div>
+
+      <div class="form-group">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required />
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" disabled />
+      </div>
+
+      <div class="form-group">
+        <label for="phone">Phone:</label>
+        <input type="text" id="phone" name="phone" />
+      </div>
+
+      <div class="form-group">
+        <label for="age">Age:</label>
+        <input type="number" id="age" name="age" min="0" />
+      </div>
+
+      <div class="form-group">
+        <label for="gender">Gender:</label>
+        <select id="gender" name="gender">
+          <option value="">--Select--</option>
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="movie_preference">Movie Preference:</label>
+        <select id="movie_preference" name="movie_preference">
+          <option value="">--Select--</option>
+          <option value="Action">Action</option>
+          <option value="Comedy">Comedy</option>
+          <option value="Drama">Drama</option>
+          <option value="Horror">Horror</option>
+          <option value="Romance">Romance</option>
+          <option value="Sci-Fi">Sci-Fi</option>
+          <option value="Thriller">Thriller</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="bio">Bio:</label>
+        <textarea id="bio" name="bio" rows="3"></textarea>
+      </div>
+
+      <button type="submit" class="save-button">💾 Save Changes</button>
+    </form>
+
+    <h3>Current Subscription:</h3>
+<table border="1" id="current-subscription">
+  <thead>
+    <tr>
+      <th>Plan</th>
+      <th>Start Date</th>
+      <th>End Date</th>
+    </tr>
+  </thead>
+  <tbody></tbody>
+</table>
+
+<h3>Past Subscriptions:</h3>
+<table border="1" id="past-subscriptions">
+  <thead>
+    <tr>
+      <th>Plan</th>
+      <th>Start Date</th>
+      <th>End Date</th>
+    </tr>
+  </thead>
+  <tbody></tbody>
+</table>
+  </div>
+</body>
+</html>

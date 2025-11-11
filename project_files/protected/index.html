@@ -1,0 +1,491 @@
+<html lang="en"> 
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/public/style.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&family=Sen:wght@400;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+    <title>Movie Design</title>
+</head>
+
+<body>
+    <div class="navbar">
+        <div class="navbar-container">
+            <div class="logo-container">
+                <h1 class="logo">iflix</h1>
+            </div>
+
+            <div class="menu-container">
+                <ul class="menu-list">
+                    <li class="menu-list-item"><a href="index.html">Home</a></li>
+
+                    <li class="menu-list-item dropdown">Movies
+  <ul class="dropdown-menu">
+    <li><a href="filter.html?genre=Animation">Animation</a></li>
+    <li><a href="filter.html?genre=Action">Action</a></li>
+    <li><a href="filter.html?genre=Biography">Biography</a></li>
+    <li><a href="filter.html?genre=Comedy">Comedy</a></li>
+    <li><a href="filter.html?genre=Drama">Drama</a></li>
+    <li><a href="filter.html?genre=Horror">Horror</a></li>
+    <li><a href="filter.html?genre=Romance">Romance</a></li>
+  </ul>
+</li>
+
+            <!-- Series -->
+            <li class="menu-list-item"><a href="series.html">Series</a></li>
+
+
+                 <li class="menu-list-item dropdown">Popular
+  <ul class="dropdown-menu">
+    <li><a href="filter.html?filterType=popular_category&filterValue=Top Rated">Top Rated</a></li>
+    <li><a href="filter.html?filterType=popular_category&filterValue=Trending Now">Trending Now</a></li>
+  </ul>
+</li>
+
+<li class="menu-list-item dropdown">Trends
+  <ul class="dropdown-menu">
+    <li><a href="filter.html?filterType=trend_category&filterValue=Weekly">Weekly</a></li>
+    <li><a href="filter.html?filterType=trend_category&filterValue=Monthly">Monthly</a></li>
+  </ul>
+</li>
+   
+                </ul>
+            </div>
+
+            <div class="profile-container">
+                <a href="user-profile.html" class="profile-link">
+                    <div class="profile-text-container">
+                        <span class="profile-text">Profile</span>
+                        <i class="fas fa-caret-down"></i>
+                    </div>
+                </a>
+                <div class="toggle">
+                    <i class="fas fa-moon toggle-icon"></i>
+                    <i class="fas fa-sun toggle-icon"></i>
+                    <div class="toggle-ball"></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="sidebar">
+        <a href="SB1-search.html"><i class="left-menu-icon fas fa-search"></i></a>
+        <a href="index.html"><i class="left-menu-icon fas fa-home"></i></a>
+        <a href="SB3-users.html"><i class="left-menu-icon fas fa-users" title="Users"></i></a>
+        <a href="series.html"><i class="left-menu-icon fas fa-tv" title="TV Shows"></i></a>
+        <a href="SB4-watch_later.html"><i class="left-menu-icon fas fa-hourglass-start" title="Watch Later"></i></a>
+        
+        <a href="SB7-subscription.html" title="Buy Subscription"><i class="left-menu-icon fas fa-shopping-cart"></i></a>
+
+    </div>
+
+
+
+    <div class="container">
+        <div class="content-container">
+            
+           <!-- <div class="featured-content" id="featuredContent">
+  <img class="featured-title" src="/public/img/f-t-1.png" alt="">
+</div> -->
+
+<div class="featured-content" id="featuredContent">
+  <div class="floating-logo-bottom">
+    <img class="featured-title" src="/public/img/f-t-1.png" alt="iflix Logo">
+  </div>
+</div>
+
+
+            <div class="movie-list-container">
+                <br><br>
+                <h1 class="movie-list-title">Latest Movies</h1>
+                <div class="movie-list-wrapper">
+                    <div class="movie-list">
+
+                        <div class="movie-list-item">
+                            <img class="movie-list-item-img" src="/public/img/1.jpeg" alt="Titanic">
+                            <span class="movie-list-item-title">Titanic</span>
+                            <p class="movie-list-item-desc">A seventeen-year-old aristocrat falls in love with a kind
+                                but poor artist aboard the ill-fated Titanic.</p>
+                            <a href="details1-titanic.html"><button class="movie-list-item-button">Details</button></a>
+                        </div>
+
+                        <div class="movie-list-item">
+                            <img class="movie-list-item-img" src="/public/img/22.jpg" alt="The Angry Birds ">
+                            <span class="movie-list-item-title">The Angry Birds</span>
+                            <p class="movie-list-item-desc">
+                                Flightless birds must team up to uncover the mystery behind the arrival of green pigs on
+                                their island.
+                            </p>
+                            <a href="details2-angrybirds.html">
+                                <button class="movie-list-item-button">Details</button>
+                            </a>
+                        </div>
+
+
+                        <div class="movie-list-item">
+                            <img class="movie-list-item-img" src="/public/img/3.jpg" alt="The Hobbit">
+                            <span class="movie-list-item-title">The Hobbit</span>
+                            <p class="movie-list-item-desc">A reluctant Hobbit sets out to reclaim his home from the
+                                dragon Smaug in this epic
+                                adventure.</p>
+                            <a href="details3-hobbit.html"><button class="movie-list-item-button">Details</button></a>
+                        </div>
+
+                        <div class="movie-list-item">
+                            <img class="movie-list-item-img" src="/public/img/4.jpg" alt="1917">
+                            <span class="movie-list-item-title">1917</span>
+                            <p class="movie-list-item-desc">
+                                Two young British soldiers during World War I are given an impossible mission: deliver a
+                                message deep in enemy
+                                territory.
+                            </p>
+                            <a href="details4-1917.html"><button class="movie-list-item-button">Details</button></a>
+                        </div>
+
+
+                        <div class="movie-list-item">
+                            <img class="movie-list-item-img" src="/public/img/20.jpg" alt="3 Idiots">
+                            <span class="movie-list-item-title">3 Idiots</span>
+                            <p class="movie-list-item-desc">Two friends search for their lost companion and revisit
+                                their college days and memories of an irrepressible friend who taught them to think
+                                differently.</p>
+                            <a href="details5-3idiots.html"><button class="movie-list-item-button">Details</button></a>
+                            </div>
+                            
+                            <!-- details6 -->
+                            <div class="movie-list-item">
+                                <img class="movie-list-item-img" src="/public/img/6.jpg" alt="Joker">
+                                <span class="movie-list-item-title">Joker</span>
+                                <p class="movie-list-item-desc">A struggling comedian's descent into madness sparks a violent revolution in Gotham
+                                    City.</p>
+                                <a href="details6-joker.html"><button class="movie-list-item-button">Details</button></a>
+                            </div>
+                            
+                            
+                            <!-- details7 -->
+                            <div class="movie-list-item">
+                            <img class="movie-list-item-img" src="/public/img/7.jpg" alt="her">
+                            <span class="movie-list-item-title">Her</span>
+                            <p class="movie-list-item-desc">In a near future, a lonely writer develops an unlikely relationship with an operating system designed to meet his every need.</p>
+                            <a href="details7-her.html"><button class="movie-list-item-button">Details</button></a>
+                        </div>
+
+                    </div>
+                    <i class="fas fa-chevron-right arrow"></i>
+                </div>
+            </div>
+
+
+            <div class="movie-list-container">
+                <h1 class="movie-list-title">Most Watched</h1>
+                <div class="movie-list-wrapper">
+                    <div class="movie-list">
+                        <div class="movie-list-item">
+                            <img class="movie-list-item-img" src="/public/img/8.jpg" alt="">
+                            <span class="movie-list-item-title">Oblivion</span>
+                            <p class="movie-list-item-desc">A drone repairman on a post-apocalyptic Earth uncovers a
+                                shocking truth about his mission and identity</p>
+                            <a href="details8-oblivion.html"><button class="movie-list-item-button">Details</button></a>
+                        </div>
+
+                    
+                        <div class="movie-list-item">
+                            <img class="movie-list-item-img" src="/public/img/9.jpg" alt="The Hobbit">
+                            <span class="movie-list-item-title">The Hobbit</span>
+                            <p class="movie-list-item-desc">A tightly wound man is forced to road-trip across the
+                                country with an eccentric stranger to make it home in time for his child’s birth.</p>
+                            <a href="details3-hobbit.html"><button class="movie-list-item-button">Details</button></a>
+                        </div>
+                        
+                        <div class="movie-list-item">
+                            <img class="movie-list-item-img" src="/public/img/10.jpg" alt="Due Date">
+                            <span class="movie-list-item-title">Due Date</span>
+                            <p class="movie-list-item-desc">
+                                High-strung Peter teams up with aspiring actor Ethan for a cross-country road trip that spirals into chaos as
+                                they race to reach home before Peter’s baby is born.
+                            </p>
+                            <a href="details10-duedate.html"><button class="movie-list-item-button">Details</button></a>
+                        </div>
+                        
+                        <div class="movie-list-item">
+                            <img class="movie-list-item-img" src="/public/img/11.jpg" alt="Kick-Ass 2" />
+                            <span class="movie-list-item-title">Kick-Ass 2</span>
+                            <p class="movie-list-item-desc">
+                                Amateur superheroes face brutal consequences when they take on a vengeful supervillain bent on destruction.
+                            </p>
+                            <a href="details11-kickass2.html"> <button class="movie-list-item-button">Details</button> </a>
+                            </div>
+
+                            <div class="movie-list-item">
+                                <img class="movie-list-item-img" src="/public/img/12.jpg" alt="The Emoji Movie" />
+                                <span class="movie-list-item-title">The Emoji Movie</span>
+                                <p class="movie-list-item-desc">
+                                    A multi-expression emoji goes on a journey through a smartphone to become "normal" in a world where conformity
+                                    rules.
+                                </p>
+                                <a href="details12-emoji-movie.html">
+                                    <button class="movie-list-item-button">Details</button>
+                                </a>
+                            </div>
+                            
+                             <div class="movie-list-item">
+                            <img class="movie-list-item-img" src="/public/img/17.jpg" alt="Due Date">
+                            <span class="movie-list-item-title">Due Date</span>
+                            <p class="movie-list-item-desc">
+                                High-strung Peter teams up with aspiring actor Ethan for a cross-country road trip that spirals into chaos as
+                                they race to reach home before Peter’s baby is born.
+                            </p>
+                            <a href="details10-duedate.html"><button class="movie-list-item-button">Details</button></a>
+                        </div>
+
+                             <div class="movie-list-item">
+                            <img class="movie-list-item-img" src="/public/img/18.jpg" alt="Due Date">
+                            <span class="movie-list-item-title">Due Date</span>
+                            <p class="movie-list-item-desc">
+                                High-strung Peter teams up with aspiring actor Ethan for a cross-country road trip that spirals into chaos as
+                                they race to reach home before Peter’s baby is born.
+                            </p>
+                            <a href="details10-duedate.html"><button class="movie-list-item-button">Details</button></a>
+                        </div>
+
+                       
+                    </div>
+                    <i class="fas fa-chevron-right arrow"></i>
+                </div>
+            </div>
+
+
+
+<!-- Add this in index.html where you want the "Newly Added" section -->
+<div class="movie-list-container">
+  <h1 class="movie-list-title">Newly Added</h1>
+  <div class="movie-list-wrapper">
+    <div class="movie-list" id="newly-added-list">
+      <!-- JS will dynamically add movies here -->
+    </div>
+  </div>
+</div>
+
+
+
+            <div class="featured-content"
+                style="background: linear-gradient(to bottom, rgba(0,0,0,0), #151515), url('img/f-2.jpg');">
+                <img class="featured-title" src="/public/img/f-t-2.png" alt="">
+                <p class="featured-desc">
+                    
+                </p>
+                <button class="featured-button">WATCH</button>
+            </div>
+            <div class="movie-list-container">
+                <h1 class="movie-list-title">Now Streaming</h1>
+                <div class="movie-list-wrapper">
+                    <div class="movie-list">
+                        
+                       <div class="movie-list-item">
+                                <img class="movie-list-item-img" src="/public/img/6.jpg" alt="Joker">
+                                <span class="movie-list-item-title">Joker</span>
+                                <p class="movie-list-item-desc">A struggling comedian's descent into madness sparks a violent revolution in Gotham
+                                    City.</p>
+                                <a href="details6-joker.html"><button class="movie-list-item-button">Details</button></a>
+                            </div>
+
+                            <div class="movie-list-item">
+                            <img class="movie-list-item-img" src="/public/img/2.jpeg" alt="Due Date">
+                            <span class="movie-list-item-title">Due Date</span>
+                            <p class="movie-list-item-desc">
+                                High-strung Peter teams up with aspiring actor Ethan for a cross-country road trip that spirals into chaos as
+                                they race to reach home before Peter’s baby is born.
+                            </p>
+                            <a href="details10-duedate.html"><button class="movie-list-item-button">Details</button></a>
+                        </div>
+                       
+                         <div class="movie-list-item">
+                            <img class="movie-list-item-img" src="/public/img/21.jpg" alt="Kick-Ass 2" />
+                            <span class="movie-list-item-title">Tiger</span>
+                            <p class="movie-list-item-desc">
+                                Amateur superheroes face brutal consequences when they take on a vengeful supervillain bent on destruction.
+                            </p>
+                            <a href="details11-kickass2.html"> <button class="movie-list-item-button">Details</button> </a>
+                            </div>
+
+                             <div class="movie-list-item">
+                            <img class="movie-list-item-img" src="/public/img/19.jpg" alt="Kick-Ass 2" />
+                            <span class="movie-list-item-title">Spider Man</span>
+                            <p class="movie-list-item-desc">
+                                Amateur superheroes face brutal consequences when they take on a vengeful supervillain bent on destruction.
+                            </p>
+                            <a href="details11-kickass2.html"> <button class="movie-list-item-button">Details</button> </a>
+                            </div>
+
+                        
+                        <div class="movie-list-item">
+                            <img class="movie-list-item-img" src="/public/img/16.jpg" alt="Due Date">
+                            <span class="movie-list-item-title">1920 London</span>
+                            <p class="movie-list-item-desc">
+                                High-strung Peter teams up with aspiring actor Ethan for a cross-country road trip that spirals into chaos as
+                                they race to reach home before Peter’s baby is born.
+                            </p>
+                            <a href="details10-duedate.html"><button class="movie-list-item-button">Details</button></a>
+                        </div>
+                        <div class="movie-list-item">
+                            <img class="movie-list-item-img" src="/public/img/18.jpg" alt="Due Date">
+                            <span class="movie-list-item-title">Due Date</span>
+                            <p class="movie-list-item-desc">
+                                High-strung Peter teams up with aspiring actor Ethan for a cross-country road trip that spirals into chaos as
+                                they race to reach home before Peter’s baby is born.
+                            </p>
+                            <a href="details10-duedate.html"><button class="movie-list-item-button">Details</button></a>
+                        </div>
+                        
+                    </div>
+                    <i class="fas fa-chevron-right arrow"></i>
+                </div>
+            </div>
+            <div class="movie-list-container">
+                <h1 class="movie-list-title">Bollywood Blockbusters</h1>
+                <div class="movie-list-wrapper">
+                    <div class="movie-list">
+                         <div class="movie-list-item">
+                            <img class="movie-list-item-img" src="/public/img/16.jpg" alt="Due Date">
+                            <span class="movie-list-item-title">1920 London</span>
+                            <p class="movie-list-item-desc">
+                                High-strung Peter teams up with aspiring actor Ethan for a cross-country road trip that spirals into chaos as
+                                they race to reach home before Peter’s baby is born.
+                            </p>
+                            <a href="details10-duedate.html"><button class="movie-list-item-button">Details</button></a>
+                        </div>
+                         <div class="movie-list-item">
+                            <img class="movie-list-item-img" src="/public/img/14.jpg" alt="Due Date">
+                            <span class="movie-list-item-title">Paths Of Glory</span>
+                            <p class="movie-list-item-desc">
+                                High-strung Peter teams up with aspiring actor Ethan for a cross-country road trip that spirals into chaos as
+                                they race to reach home before Peter’s baby is born.
+                            </p>
+                            <a href="details10-duedate.html"><button class="movie-list-item-button">Details</button></a>
+                        </div>
+                        <div class="movie-list-item">
+                            <img class="movie-list-item-img" src="/public/img/17.jpg" alt="">
+                            <span class="movie-list-item-title">Acquman</span>
+                            <p class="movie-list-item-desc">Lorem ipsum dolor sit amet consectetur adipisicing elit. At
+                                hic fugit similique accusantium.</p>
+                            <button class="movie-list-item-button">Watch</button>
+                        </div>
+                        <div class="movie-list-item">
+                            <img class="movie-list-item-img" src="/public/img/5.jpg" alt="">
+                            <span class="movie-list-item-title">Her</span>
+                            <p class="movie-list-item-desc">Lorem ipsum dolor sit amet consectetur adipisicing elit. At
+                                hic fugit similique accusantium.</p>
+                            <button class="movie-list-item-button">Watch</button>
+                        </div>
+                        <div class="movie-list-item">
+                            <img class="movie-list-item-img" src="/public/img/7.jpg" alt="">
+                            <span class="movie-list-item-title">Her</span>
+                            <p class="movie-list-item-desc">Lorem ipsum dolor sit amet consectetur adipisicing elit. At
+                                hic fugit similique accusantium.</p>
+                            <button class="movie-list-item-button">Watch</button>
+                        </div>
+                        <div class="movie-list-item">
+                            <img class="movie-list-item-img" src="/public/img/15.jpg" alt="">
+                            <span class="movie-list-item-title">Her</span>
+                            <p class="movie-list-item-desc">Lorem ipsum dolor sit amet consectetur adipisicing elit. At
+                                hic fugit similique accusantium.</p>
+                            <button class="movie-list-item-button">Watch</button>
+                        </div>
+                        <div class="movie-list-item">
+                            <img class="movie-list-item-img" src="/public/img/1.jpg" alt="">
+                            <span class="movie-list-item-title">Her</span>
+                            <p class="movie-list-item-desc">Lorem ipsum dolor sit amet consectetur adipisicing elit. At
+                                hic fugit similique accusantium.</p>
+                            <button class="movie-list-item-button">Watch</button>
+                        </div>
+                        <div class="movie-list-item">
+                            <img class="movie-list-item-img" src="/public/img/1.jpg" alt="">
+                            <span class="movie-list-item-title">Her</span>
+                            <p class="movie-list-item-desc">Lorem ipsum dolor sit amet consectetur adipisicing elit. At
+                                hic fugit similique accusantium.</p>
+                            <button class="movie-list-item-button">Watch</button>
+                        </div>
+                    </div>
+                    <i class="fas fa-chevron-right arrow"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-about">
+                <h3>About iflix</h3>
+                <p>Your ultimate destination for movies and series. Stream, discover, and enjoy a world of entertainment
+                    anytime, anywhere.</p>
+            </div>
+            <div class="footer-links">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="#">Movies</a></li>
+                    <li><a href="#">Series</a></li>
+                    <li><a href="#">Popular</a></li>
+                    <li><a href="#">Trends</a></li>
+                </ul>
+            </div>
+            <div class="footer-contact">
+                <h3>Contact Us</h3>
+                <p>Email: server@iflix.com</p>
+                <p>Phone: +1 234 567 890</p>
+                <p>Address: 17/4, Mohammadpur, Dhaka</p>
+            </div>
+            <div class="footer-social">
+                <h3>Follow Us</h3>
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 iflix. All rights reserved.</p>
+        </div>
+    </footer>
+
+
+    <!-- your closing HTML elements -->
+
+<!-- JavaScript for image slider -->
+<script>
+  const sliderImages = [
+    "/public/img/k.jpg",
+    "/public/img/home2.jpg",
+    "/public/img/6.jpg",
+    "/public/img/home3.jpg"
+  ];
+
+  let currentIndex = 0;
+  const featuredContent = document.getElementById('featuredContent');
+
+  function updateBackground() {
+    featuredContent.style.backgroundImage = `
+      linear-gradient(to bottom, rgba(0,0,0,0), #151515),
+      url('${sliderImages[currentIndex]}')
+    `;
+    currentIndex = (currentIndex + 1) % sliderImages.length;
+  }
+
+  updateBackground();
+  setInterval(updateBackground, 5000);
+</script>
+
+
+    <script src="/public/app.js"></script>
+
+</body>
+
+</html>
+
+

@@ -1,0 +1,143 @@
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: #121212;
+  color: #fff;
+  margin: 0;
+  padding: 0;
+}
+
+.subscription-container {
+  max-width: 1100px;
+  margin: 40px auto;
+  padding: 20px;
+  text-align: center;
+}
+
+h1 {
+  font-size: 36px;
+  color: #FF0000;
+}
+
+.plans {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-top: 30px;
+}
+
+.plan {
+  background: #1f1f1f;
+  border: 2px solid #FF0000;
+  border-radius: 10px;
+  padding: 20px;
+  width: 22%;
+  min-width: 220px;
+  box-shadow: 0 0 15px rgba(255, 0, 0, 0.3);
+  transition: transform 0.3s;
+}
+
+.plan:hover {
+  transform: scale(1.05);
+}
+
+.plan h2 {
+  font-size: 22px;
+  margin-bottom: 10px;
+  color: #FF0000;
+}
+
+.plan p {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.plan ul {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 15px;
+}
+
+.plan ul li {
+  margin: 5px 0;
+}
+
+.plan button {
+  background-color: #FF0000;
+  color: #fff;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 25px;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.form-container {
+  background: #1f1f1f;
+  margin-top: 40px;
+  padding: 30px;
+  border-radius: 10px;
+  border: 2px solid #FF0000;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+label {
+  display: block;
+  text-align: left;
+  margin: 10px 0 5px;
+}
+
+input, select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: none;
+  border-radius: 5px;
+  background-color: #2c2c2c;
+  color: white;
+}
+
+button[type="submit"] {
+  background-color: #FF0000;
+  padding: 12px 20px;
+  font-weight: bold;
+  border-radius: 25px;
+  border: none;
+  cursor: pointer;
+}
+
+#confirmationMessage {
+  margin-top: 40px;
+  background: #1a1a1a;
+  padding: 30px;
+  border-radius: 10px;
+  border: 2px solid #FF0000;
+}
+
+.second-row {
+  margin-top: 40px;
+  justify-content: center;
+  gap: 20px;
+}
+
+
+.back-home-container {
+  text-align: center;
+  margin: 40px 0 20px;
+}
+
+.back-home-btn {
+  background-color: #f44336;
+  color: white;
+  padding: 12px 25px;
+  border-radius: 30px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.back-home-btn:hover {
+  background-color: #d32f2f;
+}

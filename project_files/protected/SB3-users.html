@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>User Community – iFlix</title>
+  
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+  />
+  
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #0b0d17;
+      color: #fff;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: #1c1f3a;
+      border-radius: 8px;
+      padding: 20px 30px;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+    }
+
+    h2 {
+      border-bottom: 2px solid #e50914;
+      padding-bottom: 8px;
+      margin-bottom: 15px;
+      color: #e50914;
+    }
+
+    .section {
+      margin-bottom: 40px;
+    }
+
+    .user-card {
+      background: #252a48;
+      padding: 12px 15px;
+      margin-bottom: 10px;
+      border-radius: 5px;
+      font-size: 1em;
+      box-shadow: 0 0 5px #e50914;
+    }
+
+    .review, .discussion {
+      background: #252a48;
+      padding: 10px 15px;
+      border-radius: 5px;
+      margin-bottom: 8px;
+      font-size: 0.95em;
+      line-height: 1.4;
+    }
+
+    textarea {
+      width: 100%;
+      height: 70px;
+      resize: vertical;
+      padding: 10px;
+      border-radius: 5px;
+      border: none;
+      font-size: 1em;
+      background-color: #333a6d;
+      color: #fff;
+      margin-bottom: 10px;
+      box-sizing: border-box;
+    }
+
+    textarea::placeholder {
+      color: #bbb;
+    }
+
+    .submit-btn {
+      background-color: #e50914;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      font-weight: bold;
+      color: #fff;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .submit-btn:hover {
+      background-color: #f40612;
+    }
+
+    .back-home {
+      display: inline-block;
+      color: #e50914;
+      text-decoration: none;
+      font-weight: bold;
+      margin-top: 20px;
+      font-size: 1em;
+    }
+
+    .back-home i {
+      margin-right: 8px;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      font-size: 1em;
+      border-radius: 5px;
+      border: none;
+      background-color: #333a6d;
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="section">
+      <h2>Meet the iFlix Community</h2>
+      <div id="user-list"></div>
+    </div>
+
+    <div class="section">
+      <h2>User Reviews</h2>
+      <div id="review-list"></div>
+      <input type="text" id="review-name" placeholder="Your name">
+      <textarea id="review-input" placeholder="Write your review…"></textarea>
+      <button class="submit-btn" onclick="submitReview()">Submit Review</button>
+    </div>
+
+    <div class="section">
+      <h2>Fan Discussions</h2>
+      <div id="discussion-list"></div>
+      <input type="text" id="discussion-name" placeholder="Your name">
+      <textarea id="discussion-input" placeholder="Start the discussion…"></textarea>
+      <button class="submit-btn" onclick="submitDiscussion()">Post Comment</button>
+    </div>
+
+    <a class="back-home" href="index.html"><i class="fas fa-arrow-left"></i> Back to Home</a>
+  </div>
+
+  <script>
+async function fetchUsers() {
+  const res = await fetch('/api/users');
+  const users = await res.json();
+  const list = document.getElementById('user-list');
+  list.innerHTML = '';
+  users.forEach(u => {
+    const div = document.createElement('div');
+    div.className = 'user-card';
+    div.textContent = u.name; // ✅ Only show name
+    list.appendChild(div);
+  });
+}
+
+
+    async function fetchReviews() {
+      const res = await fetch('/api/reviews');
+      const reviews = await res.json();
+      const list = document.getElementById('review-list');
+      list.innerHTML = '';
+      reviews.forEach(r => {
+        const div = document.createElement('div');
+        div.className = 'review';
+        div.innerHTML = `💬 <strong>${r.user_name}:</strong> ${r.content}`;
+        list.appendChild(div);
+      });
+    }
+
+    async function submitReview() {
+      const userName = document.getElementById('review-name').value.trim();
+      const content = document.getElementById('review-input').value.trim();
+      if (!userName || !content) return alert('Please enter name and review.');
+
+      const res = await fetch('/api/reviews', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ user_name: userName, content })
+      });
+
+      if (res.ok) {
+        fetchReviews();
+        document.getElementById('review-name').value = '';
+        document.getElementById('review-input').value = '';
+      }
+    }
+
+    async function fetchDiscussions() {
+      const res = await fetch('/api/discussions');
+      const discussions = await res.json();
+      const list = document.getElementById('discussion-list');
+      list.innerHTML = '';
+      discussions.forEach(d => {
+        const div = document.createElement('div');
+        div.className = 'discussion';
+        div.innerHTML = `🗨️ <strong>${d.user_name}:</strong> ${d.content}`;
+        list.appendChild(div);
+      });
+    }
+
+    async function submitDiscussion() {
+      const userName = document.getElementById('discussion-name').value.trim();
+      const content = document.getElementById('discussion-input').value.trim();
+      if (!userName || !content) return alert('Please enter name and comment.');
+
+      const res = await fetch('/api/discussions', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ user_name: userName, content })
+      });
+
+      if (res.ok) {
+        fetchDiscussions();
+        document.getElementById('discussion-name').value = '';
+        document.getElementById('discussion-input').value = '';
+      }
+    }
+
+    fetchUsers();
+    fetchReviews();
+    fetchDiscussions();
+  </script>
+</body>
+</html>
